@@ -35,7 +35,7 @@
             margin-bottom: 10px;
         }
 
-        .login-btn {
+        .register-btn {
             background-color: black;
             color: white;
             padding: 10px;
@@ -46,7 +46,7 @@
         }
 
         .line {
-            width: 30vw;
+            width: 25vw;
             height: 1px;
             background-color: darkgray;
         }
@@ -80,18 +80,19 @@
     <div style="height: calc(100vh - 10vw); display: flex; flex-direction: column; justify-content: space-between;">
         <div>
             <header>
-                <div class="back"></div>
+                <div class="back" onclick="location.href='/signin'"></div>
             </header>
             <div class="container">
-                <h2>유스탬프에 오신 것을 환영합니다 !</h2>
-                <input type="text" placeholder="Enter your email">
-                <input type="password" placeholder="Enter your password">
+                <h2 style="text-align: center;">회원등록</h2>
+                <input type="text" placeholder="Email">
+                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Confirm password">
                 <div style="display: flex; justify-content: end;"><span style="font-size: 12px; color: gray;">Forgot
                         Password?</span></div>
-                <div class="login-btn">Login</div>
+                <div class="register-btn">Register</div>
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <div class="line"></div>
-                    <div style="font-size: 12px; color: gray;">Or Login with</div>
+                    <div style="font-size: 12px; color: gray;">Or Register with</div>
                     <div class="line"></div>
                 </div>
                 <div class="social">
@@ -101,8 +102,44 @@
                 </div>
             </div>
         </div>
-        <div style="font-size: 14px; text-align: center; margin-bottom: 5vw;">Don’t have an account? <span style="font-weight: bold; color: rgb(0, 201, 201);">Register Now</span></div>
+        <div style="font-size: 14px; text-align: center; margin-bottom: 5vw;">Already have an account? <span style="font-weight: bold; color: rgb(0, 201, 201);" onclick="location.href = '/signin'">Login Now</span></div>
     </div>
+    <script>
+        document.querySelector('.register-btn').addEventListener('click', async () => {
+            let input = document.querySelectorAll('.container > input');
+            if (!input[0].value) return alert('이메일을 확인해 주세요 !');
+            if ((input[1].value || input[2].value) && input[1].value == input[2].value) {
+                // pass
+                // 이메일 양식이 갖춰져 있다고 가정합니다.
+                // nodemailer를 통해 인증 코드 전송
+                try {
+                    const res = await fetch(`/email?email=${input[0].value}&pwd=${input[1].value}`, {
+                        method: 'GET',
+                        headers: {
+                        'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+
+                    const { success, msg } = await res.json();
+                    if (success) {
+                        alert('인증 메일이 발송되었습니다.');
+                    } else {
+                        alert('인증 메일 발송에 실패했습니다:\n' + msg);
+                    }
+                } catch (err) {
+                    console.error('Fetch error:', err);
+                    alert('서버와 통신 중 오류가 발생했습니다.');
+                }
+
+            } else {
+                alert('비밀번호를 확인해 주세요 !');
+            }
+        });
+    </script>
 </body>
 
 </html>

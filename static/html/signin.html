@@ -80,7 +80,7 @@
     <div style="height: calc(100vh - 10vw); display: flex; flex-direction: column; justify-content: space-between;">
         <div>
             <header>
-                <div class="back"></div>
+                <div class="back" onclick="location.href='/'"></div>
             </header>
             <div class="container">
                 <h2>유스탬프에 오신 것을 환영합니다 !</h2>
@@ -101,8 +101,41 @@
                 </div>
             </div>
         </div>
-        <div style="font-size: 14px; text-align: center; margin-bottom: 5vw;">Don’t have an account? <span style="font-weight: bold; color: rgb(0, 201, 201);">Register Now</span></div>
+        <div style="font-size: 14px; text-align: center; margin-bottom: 5vw;">Don’t have an account? <span style="font-weight: bold; color: rgb(0, 201, 201);" onclick="location.href='/signup'">Register Now</span></div>
     </div>
+    <script>
+        document.querySelector('.login-btn').addEventListener('click', async () => {
+            let input = document.querySelectorAll('.container > input');
+            if (input[0].value || input[1].value) {
+                // 로그인 요청
+                try {
+                    const res = await fetch(`/login?email=${input[0].value}&pwd=${input[1].value}`, {
+                        method: 'GET',
+                        headers: {
+                        'Accept': 'application/json'
+                        }
+                    });
+
+                    if (!res.ok) {
+                        throw new Error(`HTTP error! status: ${res.status}`);
+                    }
+
+                    const { success } = await res.json();
+                    if (success) {
+                        sessionStorage.setItem('email', input[0].value)
+                        sessionStorage.setItem('pwd', input[1].value)
+                        alert('로그인 성공.');
+                        location.href='/';
+                    } else {
+                        alert('로그인 실패.');
+                    }
+                } catch (err) {
+                    console.error('Fetch error:', err);
+                    alert('서버와 통신 중 오류가 발생했습니다.');
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

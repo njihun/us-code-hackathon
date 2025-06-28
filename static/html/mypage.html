@@ -47,7 +47,7 @@
     </div>
     <script>
         // 로그인 정보 확인 후 세션 정보가 저장되어 있지 않다면 로그인 페이지로 슈웃
-        if (!sessionStorage.getItem('id')) location.href = './signin';
+        if (!sessionStorage.getItem('email')) location.href = './signin';
         document.querySelectorAll('.home-btn').forEach((e, i) => {
             e.addEventListener('click', () => {
                 e.style.backgroundColor = 'white';
