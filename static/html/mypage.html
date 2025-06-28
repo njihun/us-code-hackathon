@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my page</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            user-select: none;
+        }
+
+        .container {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon {
+            width: 70vw;
+            height: 70vw;
+            background-color: darkgray;
+        }
+
+        .footer {
+            display: flex;
+            height: 10vh;
+            line-height: 10vh;
+            text-align: center;
+            background-color: darkgray;
+        }
+
+        .home-btn {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">icon</div>
+    </div>
+    <div class="footer">
+        <div class="home-btn" onclick="location.href = '../'">홈</div>
+        <div class="home-btn" style="background-color: white;">마이페이지</div>
+    </div>
+    <script>
+        // 로그인 정보 확인 후 세션 정보가 저장되어 있지 않다면 로그인 페이지로 슈웃
+        if (!sessionStorage.getItem('id')) location.href = './signin';
+        document.querySelectorAll('.home-btn').forEach((e, i) => {
+            e.addEventListener('click', () => {
+                e.style.backgroundColor = 'white';
+                document.querySelectorAll('.home-btn')[Math.abs(i-1)].style.backgroundColor = 'darkgray';
+            })
+        })
+    </script>
+</body>
+</html>

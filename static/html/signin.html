@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <style>
+        body {
+            margin: 5vw;
+        }
+
+        header {
+            margin-top: 7vh;
+        }
+
+        .back {
+            width: 7vh;
+            height: 7vh;
+            background-image: url('/imgs/back.png');
+            background-size: 7vh 7vh;
+            border: 2px solid darkgray;
+            border-radius: 32%;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container>input {
+            padding: 10px;
+            border: 1px solid darkgray;
+            border-radius: 7px;
+            margin-bottom: 10px;
+        }
+
+        .login-btn {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border-radius: 7px;
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        .line {
+            width: 30vw;
+            height: 1px;
+            background-color: darkgray;
+        }
+
+        .social {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .social>div {
+            height: 40px;
+            border: 1.5px solid darkgray;
+            margin-right: 15px;
+            flex: 1;
+            border-radius: 10px;
+        }
+
+        .social>div:last-child {
+            margin-right: 0;
+        }
+
+        .social > div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="height: calc(100vh - 10vw); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <header>
+                <div class="back"></div>
+            </header>
+            <div class="container">
+                <h2>유스탬프에 오신 것을 환영합니다 !</h2>
+                <input type="text" placeholder="Enter your email">
+                <input type="password" placeholder="Enter your password">
+                <div style="display: flex; justify-content: end;"><span style="font-size: 12px; color: gray;">Forgot
+                        Password?</span></div>
+                <div class="login-btn">Login</div>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div class="line"></div>
+                    <div style="font-size: 12px; color: gray;">Or Login with</div>
+                    <div class="line"></div>
+                </div>
+                <div class="social">
+                    <div><img style="width: 3.5vh; height: 3.5vh;" src="/imgs/facebook.png"></div>
+                    <div><img style="width: 5vh; height: 5vh;" src="/imgs/google.webp"></div>
+                    <div><img style="width: 11vh; height: 8vh;" src="/imgs/apple.png"></div>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 14px; text-align: center; margin-bottom: 5vw;">Don’t have an account? <span style="font-weight: bold; color: rgb(0, 201, 201);">Register Now</span></div>
+    </div>
+</body>
+
+</html>
