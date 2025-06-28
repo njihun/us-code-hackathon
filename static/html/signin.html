@@ -120,14 +120,14 @@
                         throw new Error(`HTTP error! status: ${res.status}`);
                     }
 
-                    const { success } = await res.json();
+                    const { success, msg } = await res.json();
                     if (success) {
                         sessionStorage.setItem('email', input[0].value)
                         sessionStorage.setItem('pwd', input[1].value)
                         alert('로그인 성공.');
                         location.href='/';
                     } else {
-                        alert('로그인 실패.');
+                        alert('로그인 실패.\n'+msg);
                     }
                 } catch (err) {
                     console.error('Fetch error:', err);
