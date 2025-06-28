@@ -1,6 +1,12 @@
 runtime: nodejs
 env: flex
 
+# 운영체제 지정 (Ubuntu 22)
 runtime_config:
   operating_system: "ubuntu22"
-  runtime_version: "20"
+  # 명시적으로 Node.js 22 사용 (또는 "20"으로 최신 LTS)
+  runtime_version: "22"
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
