@@ -6,6 +6,20 @@ const db = require('./module/db');
 
 app.use(express.static(__dirname + '/public'));
 
+const crypto = require('crypto');
+
+/**
+ * 문자열을 SHA-512 해시로 암호화
+ * @param {string} data – 해시할 문자열
+ * @returns {string} 16진수(hex)로 인코딩된 해시값
+ */
+function sha512Hash(data) {
+  return crypto
+    .createHash('sha512')
+    .update(data, 'utf8')
+    .digest('hex');
+}
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/static/html/home.html');
 });
@@ -31,7 +45,7 @@ app.get('/login', async (req, res) => {
   const users = await db.getData();
   if (users.docs.some((user) => user.data().email == email)) {
     const userDoc = users.docs.find(user => user.data().email === email);
-    if (userDoc.data().pwd == pwd) {
+    if (userDoc.data().pwd == sha512Hash(pwd)) {
       res.send({success: true});
     } else {
       return res.send({success: false, msg: "비밀번호가 일치하지 않습니다."});
@@ -53,7 +67,7 @@ app.get('/register', async (req, res) => {
     }
     db.setData('users', {
       email: email,
-      pwd: pwd,
+      pwd: sha512Hash(pwd),
       name: name,
       score: 0
     }).then(()=>res.send("계정이 생성되었습니다."));
